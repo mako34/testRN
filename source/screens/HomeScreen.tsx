@@ -3,6 +3,26 @@ import React , { useState } from 'react';
 import { FlatList, SafeAreaView, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
 
 
+const planData = {
+    "services": [
+    {
+        id: "1",
+        label: "Kevin's Mobile", 
+        phoneNumber: "0400234789", 
+        dataRemaining: "4", //GB
+    }, 
+    {
+        id: "2",
+        label: "Anna's Mobile", 
+        phoneNumber: "0400234789",
+        dataRemaining: "12", // GB
+    }, {
+        id: "3",
+        label: "Kelly's Mobile", 
+        phoneNumber: "0400234789",
+        dataRemaining: "0.4", // GB
+    } ]
+    }
 
 const DATA = [
     {
@@ -19,25 +39,36 @@ const DATA = [
     },
   ];
   
+const chuza = () => {
+    console.log("chuchuchu:", planData.services)
+}
+
   const Item = ({ item, onPress, style }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
-      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.title}>{item.label}</Text>
+      <Text style={styles.title}>{item.phoneNumber}</Text>
+
     </TouchableOpacity>
   );
 
 
-function HomeScreen({ navigation }) {
+function HomeScreen( { navigation } : {navigation:any} ) {
 
+ 
+    chuza()
 
     const [selectedId, setSelectedId] = useState(null);
     
     const renderItem = ({ item }) => {
-        const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
+        const backgroundColor =   "#f9c2ff";
     
         return (
           <Item
             item={item}
-            onPress={() => setSelectedId(item.id)}
+            onPress={() => {
+                setSelectedId(item.id)
+                navigation.navigate('Details')
+            }}
             style={{ backgroundColor }}
           />
         );
@@ -46,7 +77,7 @@ function HomeScreen({ navigation }) {
     return (
         <SafeAreaView style={styles.container}>
         <FlatList
-          data={DATA}
+          data={planData.services}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           extraData={selectedId}
