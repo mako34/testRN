@@ -26,8 +26,7 @@ const planData = {
 
   
 
-
-  const Item = ({ item, onPress }) => (
+  const Item = ({ item, onPress } : { item: any; onPress: any }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item]}>
         <View style={{flex:1, flexDirection:'row', justifyContent: 'space-between'}}>
             <Text style={styles.title}>{item.label}</Text>
@@ -48,9 +47,10 @@ const planData = {
 function HomeScreen( { navigation } : {navigation:any} ) {
 
  
+
     const [selectedId, setSelectedId] = useState(null);
     
-    const renderItem = ({ item }) => {
+    const renderItem = ( {item}:{item:any}) => {
     
         return (
           <Item
