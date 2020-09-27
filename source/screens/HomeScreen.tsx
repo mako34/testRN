@@ -1,6 +1,6 @@
 
 import React , { useState } from 'react';
-import { FlatList, SafeAreaView, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
+import { FlatList, SafeAreaView, Text, TouchableOpacity, StyleSheet, StatusBar , View } from 'react-native';
 
 
 const planData = {
@@ -22,31 +22,24 @@ const planData = {
         phoneNumber: "0400234789",
         dataRemaining: "0.4", // GB
     } ]
-    }
-
-const DATA = [
-    {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      title: "First Item",
-    },
-    {
-      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-      title: "Second Item",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      title: "Third Item",
-    },
-  ];
-  
-const chuza = () => {
-    console.log("chuchuchu:", planData.services)
 }
 
-  const Item = ({ item, onPress, style }) => (
-    <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
-      <Text style={styles.title}>{item.label}</Text>
-      <Text style={styles.title}>{item.phoneNumber}</Text>
+  
+
+
+  const Item = ({ item, onPress }) => (
+    <TouchableOpacity onPress={onPress} style={[styles.item]}>
+        <View style={{flex:1, flexDirection:'row', justifyContent: 'space-between'}}>
+            <Text style={styles.title}>{item.label}</Text>
+            <Text style={styles.phone}>{item.dataRemaining} GB</Text>
+        </View>
+        <View style={{flex:1, flexDirection:'row', justifyContent: 'space-between'}}>
+            <Text style={styles.phone}>{item.phoneNumber}</Text>
+            <Text style={styles.phone}>Data remaining</Text>
+
+        </View>
+
+      
 
     </TouchableOpacity>
   );
@@ -55,12 +48,9 @@ const chuza = () => {
 function HomeScreen( { navigation } : {navigation:any} ) {
 
  
-    chuza()
-
     const [selectedId, setSelectedId] = useState(null);
     
     const renderItem = ({ item }) => {
-        const backgroundColor =   "#f9c2ff";
     
         return (
           <Item
@@ -69,7 +59,6 @@ function HomeScreen( { navigation } : {navigation:any} ) {
                 setSelectedId(item.id)
                 navigation.navigate('Details')
             }}
-            style={{ backgroundColor }}
           />
         );
       };
@@ -95,10 +84,14 @@ function HomeScreen( { navigation } : {navigation:any} ) {
       padding: 20,
       marginVertical: 8,
       marginHorizontal: 16,
+      backgroundColor:  "#D3D3D3"
     },
     title: {
       fontSize: 32,
     },
+    phone: {
+      fontSize: 14,
+    }
   });
 
   export default HomeScreen;
